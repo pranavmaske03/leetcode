@@ -1,8 +1,8 @@
 #include<stdio.h>
-#include"LinkedList1.h"
+#include"LinkedList.h"
 #include<stdbool.h>
     
-bool isSameTree(PNODE p, PNODE q) 
+bool isSameTree(struct NodeBST* p, struct NodeBST* q) 
 {
     bool flag1 = false;
     bool flag2 = false;
@@ -18,7 +18,7 @@ bool isSameTree(PNODE p, PNODE q)
     if((p != NULL) && (q != NULL))
     {
         flag1 = isSameTree(p->lchild,q->lchild);
-        printf("p->data : %d\tq->data : %d\n",p->data,q->data);
+        //printf("p->data : %d\tq->data : %d\n",p->data,q->data);
         flag2 = isSameTree(p->rchild,q->rchild);  
     }
     return flag1 & flag2;
@@ -26,8 +26,8 @@ bool isSameTree(PNODE p, PNODE q)
 
 int main()
 {
-    PNODE first1 = NULL;
-    PNODE first2 = NULL;
+    struct NodeBST* first1 = NULL;
+    struct NodeBST* first2 = NULL;
     bool bRet = false;
 
     Insert(&first1,2);
@@ -38,8 +38,12 @@ int main()
     Insert(&first2,3);
     Insert(&first2,1);
     
-    //Inorder(first1);
-    //Inorder(first2);
+    Inorder(first1);
+    printf("\n");
+    Preorder(first1);
+    printf("\n");
+    Postorder(first1);
+    printf("\n");
 
     bRet = isSameTree(first1,first2);  
     if(bRet == true)

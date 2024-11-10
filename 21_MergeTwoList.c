@@ -95,8 +95,7 @@ struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
     return head;
 }
 
-/*
-struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) 
+struct ListNode* mergeTwoLists1(struct ListNode* l1, struct ListNode* l2) 
 {
     if(l1 == NULL)
     {
@@ -118,7 +117,7 @@ struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2)
         return l2;
     }
 }
-*/
+
 
 int main()
 {
