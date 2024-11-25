@@ -53,7 +53,7 @@ char*** groupAnagrams(char (*strs)[50], int strsSize, int* returnSize)
             }
             Init(check2);
         }
-        m++;
+        m++;              
         Init(check1);
     }
     return anagram;
