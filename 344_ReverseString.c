@@ -13,29 +13,6 @@ void reverseString(char* s, int sSize)
         end--;
     }
 }
-int minOperations1(char** logs, int logsSize)
-{
-    int count = 0;
-    for(int i = 0;i < logsSize;i++)    
-    {
-        if(count < 0)
-        {
-            count = 0;
-        }
-        if(logs[i][0] == '.')
-        {
-            if(logs[i][1] == '.')
-            {
-                count--;
-            }
-        }
-        else
-        {
-            count++;
-        }
-    }
-    return count;
-}
 
 int main()
 {
