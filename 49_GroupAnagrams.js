@@ -2,33 +2,37 @@
 
 var groupAnagrams = function(strs) 
 {
-    let result = [];
-    let anagram = [];
+    const map = new Map();
 
     for(let i = 0; i < strs.length; i++)
     {
-        anagram[i] = strs[i].split('').sort().join('');
-    }
+        let key = strs[i].split('').sort().join('');
 
-    const map = new Map();
-
-    for(let i = 0; i < anagram.length; i++)
-    {
-        if(map.has(anagram[i])) {
-            map.get(anagram[i]).push(i);
+        if(map.has(key)) {
+            map.get(key).push(strs[i]);
         } else {
-            map.set(anagram[i],[i]);
+            map.set(key,[strs[i]]);
         }
     }
+    const result = Array.from(map.values());
+    return result;
+};
 
-    map.forEach((values) => {
-        let row = [];
-        values.forEach(value => {
-            row.push(strs[value]);
-        });
-        result.push(row);
-    });
-    return result;    
+var groupAnagrams1 = function(strs) 
+{
+    let result = {};
+
+    for(let i = 0; i < strs.length; i++) 
+    {
+        let key = strs[i].split('').sort().join('');
+        
+        if(!result[key]) 
+        {
+            result[key] = [];
+        }
+        result[key].push(strs[i]);
+    }
+    return Object.values(result);
 };
 
 let main = function()
