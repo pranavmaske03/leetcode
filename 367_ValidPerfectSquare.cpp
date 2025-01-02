@@ -1,5 +1,5 @@
 #include<iostream>
-using namespaces std;
+using namespace std;
 
 class Solution 
 {
@@ -28,7 +28,9 @@ class Solution
 
 int main()
 {
-
+    Solution obj;
+    cout<<obj.isPerfectSquare(1);
+    cout<<(1%2);
 
     return 0;
 }
