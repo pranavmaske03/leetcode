@@ -14,6 +14,7 @@ var groupAnagrams = function(strs)
             map.set(key,[strs[i]]);
         }
     }
+    console.log(map);
     const result = Array.from(map.values());
     return result;
 };
