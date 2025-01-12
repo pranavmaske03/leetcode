@@ -4,23 +4,22 @@
  * @param {number} depth
  * @return {Array}
  */
-var flat = function (arr, n) 
+var flat = function(arr, depth) 
 {
-    let result = [];
-    if(n == 0) return arr;
-    while(n--)
-    {
-        for(let val of arr) {
-            if(val.length != undefined) {
-                result.push(...val);
-            } else {
-                result.push(val);
-            }
-        }
-        arr = result;
-        result = [];
+    const stack = [...arr.map(item => [item, depth])];
+    const result = [];
+  
+    while (stack.length > 0) {
+      const [item, depth] = stack.pop();
+  
+      if (Array.isArray(item) && depth > 0) {
+        stack.push(...item.map(subItem => [subItem, depth - 1]));
+      } else {
+        result.push(item);
+      }
     }
-    return arr;
+  
+    return result.reverse();
 };
 
 let main = function() {
