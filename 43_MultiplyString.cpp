@@ -22,14 +22,12 @@ class Solution {
                     result[i + j] += sum / 10;
                 }
             }
-            for(auto val : result) cout<<val;
             string res = "";
             for(int num : result) {
                 if(!(res.empty() && num == 0)) {
                     res += to_string(num);
                 }
             }
-            cout<<"\n"<<res<<"\n";
             return res.empty() ? "0" : res;
         }
 };
