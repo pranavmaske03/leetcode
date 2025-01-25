@@ -8,10 +8,9 @@ class Solution
         int maxProfit(vector<int>& prices) {
             int maxProfit = 0;
             int buy = prices[0];
-            bool flag = true;
 
             for(int i = 1; i < prices.size(); i++) {
-                if(buy > prices[i] && flag) {
+                if(buy > prices[i]) {
                     buy = prices[i];
                     continue;
                 }
@@ -25,13 +24,26 @@ class Solution
             }
             return maxProfit;
         }
+
+        int maxProfit1(vector<int>& prices) {
+            int maxProfit = 0;
+          
+            for(int i = 1; i < prices.size(); i++) 
+            {
+                if(prices[i] > prices[i-1])
+                {
+                    maxProfit += (prices[i] - prices[i-1]);
+                }
+            }
+            return maxProfit;
+        }
 };
 
 int main()
 {
     vector<int> prices = {1,2,3,4,5};
     Solution obj;
-    cout<<obj.maxProfit(prices)<<endl;
+    cout<<obj.maxProfit1(prices)<<endl;
 
     return 0;
 }
