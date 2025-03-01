@@ -13,7 +13,7 @@ using namespace std;
  * };
  */
 class Solution {
-    public:
+    public:N
         TreeNode* searchBST(TreeNode* root, int val) {
             if (!root) {
                 return nullptr;
