@@ -4,38 +4,24 @@
 using namespace std;
 
 class MyHashSet {
+    int n = 10000;
+    vector<unordered_set<int>> arr;
+    
     public:
-        int n = 10000;
-        vector<vector<int>> arr;
-        
         MyHashSet() {
             arr.resize(n);
         }
         
         void add(int key) {
-            int idx = key % n;
-            for(int x : arr[idx]) {
-                if (x == key) return;
-            }
-            arr[idx].push_back(key);
+            arr[key % n].insert(key);
         }
         
         void remove(int key) {
-            int idx = key % n;
-            for (int i = 0; i < arr[idx].size(); i++) {
-                if (arr[idx][i] == key) {
-                    arr[idx].erase(arr[idx].begin() + i);
-                    return;
-                }
-            }
+            arr[key % n].erase(key);
         }
         
         bool contains(int key) {
-            int idx = key % n;
-            for (int x : arr[idx]) {
-                if (x == key) return true;
-            }
-            return false;
+            return arr[key % n].count(key) > 0;
         }
 };
 
