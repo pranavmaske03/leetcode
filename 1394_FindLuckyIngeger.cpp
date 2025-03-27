@@ -26,6 +26,8 @@ class Solution
 
 int main() 
 {
-
+    vector<int> arr = {2,2,3,3,4};
+    Solution obj;
+    cout<< obj.findLucky(arr);
     return 0;
 }
