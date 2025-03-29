@@ -23,6 +23,8 @@ class Solution
 
 int main() 
 {
-
+    int n = 10;
+    Solution obj;
+    cout<<obj.countPrimes(n);
     return 0;
 }
