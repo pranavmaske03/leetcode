@@ -8,7 +8,7 @@ class Solution {
         vector<string> findWords(vector<string>& words) {
             vector<string> result;
 
-            // Convert rows into sets for quick character lookup
+           
             unordered_set<char> firstRow = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
                                             'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'};
             unordered_set<char> secondRow = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
