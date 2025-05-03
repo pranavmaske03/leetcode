@@ -1,26 +1,21 @@
 #include<iostream>
 
-class Solution {
-public:
-    bool isPowerOfThree(int n) 
-    {
-        int max = INT_MAX;
-        long long power = 1;
-        if(n == 1) return true;
-        while(power < max)
+class Solution 
+{
+    public:
+        bool isPowerOfThree(int n,int power = 1) 
         {
-            power *= 3;
-            if(power == n) return true;
-            if(power > n) break;
+            std::cout<<"Hello\n";
+            if(n == 1) return true;
+            if(n % 3 != 0) return false;
+            return isPowerOfThree(n/3);
         }
-        return false;
-    }
 };
 
 int main()
 {
     Solution obj;
-    obj.isPowerOfThree(27);
+    std::cout<<"output : "<<obj.isPowerOfThree(23);
     
     return 0;
 }
