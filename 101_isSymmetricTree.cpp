@@ -11,7 +11,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution 
+class Solution   
 {
     public:
         bool isMirror(TreeNode *root1,TreeNode *root2) {
