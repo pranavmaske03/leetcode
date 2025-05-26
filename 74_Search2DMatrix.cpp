@@ -7,28 +7,25 @@ class Solution
     public:
         bool searchMatrix(vector<vector<int>>& matrix, int target) 
         {
-            int row = matrix.size();
-            int col = matrix[0].size();
-            bool flag = false;
+            int rows = matrix.size();
+            int cols = matrix[0].size();
 
-            for(int i = 0,m = row-1; i < row; i++,m--)
-            {
-                for(int j = 0,n = col-1; j < col; j++,n--)
-                {
-                    if(matrix[i][j] == target)
-                    {
-                        flag = true;
-                        break;
-                    }
-                    if(matrix[m][n] == target)
-                    {
-                        flag = true;
-                        break;
-                    }
+            int left = 0;
+            int right = rows * cols -1;
+
+            while(left <= right) {
+                int mid = left + (right - left) / 2;
+                int mid_value = matrix[mid/cols][mid%cols];
+
+                if(mid_value == target) {
+                    return true;
+                } else if(mid_value > target) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
                 }
-                if(flag == true) break;
             }
-            return flag;
+            return false;
         }
 };
 
