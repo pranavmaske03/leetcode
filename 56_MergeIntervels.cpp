@@ -3,7 +3,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
+class Solution 
+{
     public:
         vector<vector<int>> merge(vector<vector<int>>& intervals) 
         {
@@ -19,19 +20,14 @@ class Solution {
             {
                 int start = intervals[i][0];
                 int end = intervals[i][1];
-                
-                // check weather current end time is greater than the subsequent start time.
-                if(i < intervals.size()-1 && end >= intervals[i+1][0]) 
+                int j = i;
+
+                while(j < intervals.size()-1 && end >= intervals[j+1][0])
                 {
-                    // check how many overlapping times
-                    for(j = i+1; j < intervals.size(); j++) 
-                    {
-                        if(end < intervals[j][1]) end = intervals[j][1];
-                        if(j < intervals.size()-1 && end >= intervals[j+1][0]) continue;
-                        else break;
-                    }
-                    i = j;
+                    j++;
+                    end = max(end, intervals[j][1]);
                 }
+                i = j;
                 result.push_back({start,end});
             }
             return result;
