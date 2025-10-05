@@ -3,7 +3,7 @@
 #include <deque>
 using namespace std;
 
-class Solution 
+class Solution w
 {
     public:
         vector<int> maxSlidingWindow(vector<int>& nums, int k) 
