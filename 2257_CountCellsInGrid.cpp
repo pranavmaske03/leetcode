@@ -12,107 +12,59 @@ Return the number of unoccupied cells that are not guarded.
 
 using namespace std;
 
-class Solution {
-public:
+class Solution 
+{
+    public:
 
-    const int UNGUARDED = 0;
-    const int GUARDED = 1;
-    const int GUARD = 2;
-    const int WALL = 3;
+        const char UNGUARDED = 'U';
+        const char GUARD = 'G';
+        const char SEEN = 'S';
+        const char WALL = 'W';
 
-    int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) 
-    {
-
-        vector<vector<int>> grid(m,vector<int>(n,UNGUARDED));
-
-        //assign the GUARD wherever they should be
-        for(const auto& guard : guards)
+        int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) 
         {
-            grid[guard[0]][guard[1]] = GUARD;
-        }
+            vector<vector<char>> grid(m, vector<char>(n, UNGUARDED));
+            int count = 0;
 
-        //assign the walls wherever they should be
-        for(const auto& wall : walls)
-        {
-            grid[wall[0]][wall[1]] = WALL;
-        }
+            // mark walls
+            for(auto &wall : walls) {
+                grid[wall[0]][wall[1]] = WALL;
+            }
 
+            // mark guards
+            for(auto &guard : guards) {
+                grid[guard[0]][guard[1]] = GUARD;
+            }
 
-        //now mark all the guarded cells in the particular guard's range i.e. left,right,upwards,downwards
-        for(const auto& guard : guards)
-        {
-            markGuarded(guard[0],guard[1],grid);
-        }
-
-
-        //count the ungaurded cells
-        int count = 0;
-        for(const auto& row : grid)
-        {
-            for(const auto& cell : row)
+            // mark seen cells in all 4 directions
+            for(int i = 0; i < guards.size(); i++)
             {
-                if(cell == UNGUARDED)
-                {
-                    count++;
+                int r = guards[i][0];
+                int c = guards[i][1];
+
+                // travel right
+                for(int k = c + 1; k < n && grid[r][k] != WALL && grid[r][k] != GUARD; k++)   grid[r][k] = SEEN;
+                
+                // travel left
+                for(int k = c - 1; k >= 0 && grid[r][k] != WALL && grid[r][k] != GUARD; k--)  grid[r][k] = SEEN;
+
+                // travel down
+                for(int k = r + 1; k < m && grid[k][c] != WALL && grid[k][c] != GUARD; k++)   grid[k][c] = SEEN;
+
+                // travel up
+                for(int k = r - 1; k >= 0 && grid[k][c] != WALL && grid[k][c] != GUARD; k--)  grid[k][c] = SEEN;
+            }
+
+            // count unguarded cells
+            for(int i = 0; i < m; i++)
+            {
+                for(int j = 0; j < n; j++) {
+                    if(grid[i][j] == UNGUARDED) count++;
                 }
             }
+
+            return count;
         }
-
-
-        return count;
-
-    }
-
-    void markGuarded(int row,int col,vector<vector<int>>& grid)
-    {
-
-        //travel upwards from guard pos
-        for(int i = row-1;i >= 0;i--)
-        {
-            if(grid[i][col] == WALL || grid[i][col] == GUARD)
-            {
-                break;
-            }
-
-            grid[i][col] = GUARDED;
-        }
-
-
-        //travel downwards from guard pos
-        for(int i = row + 1;i < grid.size();i++)
-        {
-            if(grid[i][col] == WALL || grid[i][col] == GUARD)
-            {
-                break;
-            }
-
-            grid[i][col] = GUARDED;
-        }
-
-
-        //travel leftside from guard pos
-        for(int i = col - 1;i >= 0;i--)
-        {
-            if(grid[row][i] == WALL || grid[row][i] == GUARD)
-            {
-                break;
-            }
-            grid[row][i] = GUARDED;
-        }
-
-        
-        //travel rightside from guard pos
-        for(int i = col + 1;i < grid[row].size();i++)
-        {
-            if(grid[row][i] == WALL || grid[row][i] == GUARD)
-            {
-                break;
-            }
-
-            grid[row][i] = GUARDED;
-        }
-
-    }
 };
 
 
