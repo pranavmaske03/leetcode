@@ -20,6 +20,28 @@ class Solution
             }
             return single_number;
         }
+        // Bit manipulation technique
+        int singleNumber1(vector<int>& nums) 
+        {
+            int ans = 0;
+
+            for (int bit = 0; bit < 32; bit++)
+            {
+                int cnt = 0;
+                unsigned int mask = 1U << bit;
+
+                for(int& num : nums) {
+                    if ((unsigned int)num & mask) {
+                        cnt++;
+                    }
+                }
+
+                if (cnt % 3 != 0) {
+                    ans |= mask;
+                }
+            }
+            return ans;            
+        }
 };
 
 int main()

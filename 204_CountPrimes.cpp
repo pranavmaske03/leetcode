@@ -5,19 +5,21 @@ using namespace std;
 class Solution 
 {
     public:
-        int countPrimes(int n) {
-            int primeCount = 0;
-            vector<bool> check(n+1, true);
+        int countPrimes(int n) 
+        {
+            int count = 0;
+            vector<bool> prime(n,true);
 
-            for(int i = 2; i < n; i++) {
-                if(check[i] == true) {
-                    primeCount++;
-                    for(long long j = (long long)i*i; j < n; j += i) {
-                        check[j] = false;
-                    }
+            for (int i = 2; i * i < n; i++) {
+                for (int j = i * i; j < n; j += i) {
+                    prime[j] = false;
                 }
             }
-            return primeCount;
+            for (int i = 2; i < n; i++) {
+                if (prime[i] == true)
+                    count++;
+            }
+            return count;
         }
 };
 
