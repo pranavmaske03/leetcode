@@ -14,6 +14,7 @@ using namespace std;
 class Solution 
 {
     public:
+        // with recursion
         ListNode* removeElements(ListNode* head, int val) 
         {
             if(head == nullptr) return nullptr;
@@ -24,6 +25,26 @@ class Solution
             } else {
                 return head;
             }
+        }
+        // without recursion
+        ListNode* removeElements(ListNode* head, int val) 
+        {
+            ListNode *_dummy = new ListNode();
+            _dummy->next = head;
+
+            ListNode *_curr = head;
+            ListNode *_prev = _dummy;
+
+            while(_curr) 
+            {
+                if(_curr->val == val) {
+                    _prev->next = _curr->next;
+                } else {
+                    _prev = _curr;
+                }
+                _curr = _curr->next;
+            }
+            return _dummy->next;
         }
 };
 
