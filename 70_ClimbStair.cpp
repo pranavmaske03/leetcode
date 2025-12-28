@@ -19,6 +19,36 @@ class Solution
             }
             return curr;
         }
+        // DP - Memoization
+        int ways(int n, vector<int>& memo)
+        {
+            if(n <= 2) return n;
+            if(memo[n] != -1) return memo[n];
+
+            memo[n] = ways(n - 1,memo) + ways(n - 2,memo);
+            return memo[n];
+        }
+
+        int climbStairs(int n) 
+        {
+            vector<int> memo(n+1,-1);
+            return ways(n,memo);
+        }
+
+        // DP - Tabulation
+        int climbStairs(int n) 
+        {
+            if(n <= 2) return n;
+            vector<int> tb(n+1,-1);
+            tb[1] = 1,tb[2] = 2;
+            
+
+            for(int i = 3; i <= n; i++)
+            {
+                tb[i] = tb[i - 1] + tb[i - 2];
+            }
+            return tb[n];
+        }
 };
 
 int main()
