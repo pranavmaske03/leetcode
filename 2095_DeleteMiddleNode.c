@@ -3,17 +3,13 @@
 struct Node* middleNode(struct Node* head) 
 {
     if(head == NULL || head->next == NULL) return NULL;
-    struct Node *_fast = head;
     struct Node *_slow = head;
+    struct Node *_fast = head->next->next;
     struct Node *tmp = NULL;
 
-    while(_slow != NULL) 
+    while(_fast && _fast->next) 
     {
         _fast = _fast->next->next;
-        if(_fast == NULL || _fast->next == NULL)
-        {
-            break;
-        }
         _slow = _slow->next;
     }
     tmp = _slow->next;
