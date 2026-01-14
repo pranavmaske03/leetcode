@@ -1,6 +1,3 @@
-#include<iostream>
-using namespace std;
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -14,28 +11,30 @@ using namespace std;
 class Solution 
 {
     public:
-        ListNode* removeNthFromEnd(ListNode* head, int n) 
+        ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
         {
-            if(head == NULL || head->next == NULL) return NULL;
+            ListNode *_dummy = new ListNode();
+            ListNode *_curr = _dummy;
+            int carry = 0;
 
-            int total_nodes = 0;
-            ListNode *_curr = head;
-            ListNode *_prev = head;
+            while(l1 || l2 || carry)
+            {
+                int sum = carry;
 
-            while(_curr != nullptr) {
-                if(total_nodes > n) _prev = _prev->next;
-                total_nodes++;
+                if(l1) { 
+                    sum += l1->val;
+                    l1 = l1->next;
+                }
+                if(l2) {
+                    sum += l2->val;
+                    l2 = l2->next;
+                }
+
+                carry = sum / 10;
+                _curr->next = new ListNode(sum%10);
                 _curr = _curr->next;
             }
-            if(total_nodes == n) return _prev->next;
-            else _prev->next = _prev->next->next;
 
-            return head;
+            return _dummy->next;
         }
 };
-
-int main()
-{
-
-    return 0;
-}
