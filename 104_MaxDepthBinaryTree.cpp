@@ -15,6 +15,7 @@ using namespace std;
 class Solution 
 {
     public:
+        // using dfs traversal
         int maxDepth(TreeNode* root) 
         {
             if(root == nullptr) return 0;
@@ -24,6 +25,31 @@ class Solution
 
             int max_depth = max(leftHeight,rightHeight);
             return max_depth + 1;
+        }
+        // using bfs traversal
+        int maxDepth(TreeNode* root) 
+        {
+            if(root == nullptr) return 0;
+
+            int depth = 0;
+            queue<TreeNode*> queue;
+            queue.push(root);
+
+            while(!queue.empty())
+            {
+                int levelSize = queue.size();
+
+                for(int i = 1; i <= levelSize; i++)
+                {
+                    TreeNode *node = queue.front();
+                    queue.pop();
+
+                    if(node->left) queue.push(node->left);
+                    if(node->right) queue.push(node->right);
+                }
+                depth++;
+            }
+            return depth;
         }
 };
 
