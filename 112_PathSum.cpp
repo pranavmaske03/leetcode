@@ -29,6 +29,22 @@ class Solution
         {
             return dfs(root,targetSum,0);
         }
+
+        // Another optimized approach
+        bool hasPathSum(TreeNode* root, int targetSum) 
+        {
+            if(root == nullptr) return false;
+
+            if(!root->left && !root->right && targetSum - root->val == 0) return true;
+
+            if(hasPathSum(root->left, targetSum - root->val)) {
+                return true;
+            }
+            if(hasPathSum(root->right, targetSum - root->val)) {
+                return true;
+            }
+            return false;
+        }
 };
 
 int main()
