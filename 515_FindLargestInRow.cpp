@@ -15,6 +15,28 @@ struct TreeNode {
 class Solution 
 {
     public:
+    // Using DFS technique
+        void dfs(TreeNode* root, vector<int>& res, int level)
+        {
+            if(root == nullptr) return;
+
+            if(res.size() == level) {
+                res.push_back(root->val);
+            } 
+            res[level] = max(res[level],root->val);
+            
+            dfs(root->left,res,level + 1);
+            dfs(root->right, res,level + 1);
+        }
+
+        vector<int> largestValues(TreeNode* root) 
+        {
+            vector<int> res;
+            dfs(root,res,0);
+            return res;
+        }
+
+    // Using BFS technique
         vector<int> largestValues(TreeNode* root) 
         {
             // result array to return max values at each level
