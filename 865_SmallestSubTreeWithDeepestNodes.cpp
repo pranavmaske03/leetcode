@@ -18,21 +18,20 @@ class Solution
         TreeNode *lca;
         int maxDepth;
 
-    public:
         int dfs(TreeNode *root, int depth)
         {
+            if(root == nullptr) return depth - 1;
+
             maxDepth = max(depth,maxDepth);
-            if(!root) return depth;
             int left = dfs(root->left, depth + 1);
             int right = dfs(root->right, depth + 1);
 
             if(left == maxDepth && right == maxDepth) {
                 lca = root;
-                cout<<root->val;
             }
             return max(left,right);
         }
-
+    public:
         TreeNode* subtreeWithAllDeepest(TreeNode* root) 
         {
             lca = nullptr;
@@ -41,8 +40,6 @@ class Solution
             return lca;
         }
 };
-
-
 
 int main()
 {
