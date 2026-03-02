@@ -3,37 +3,52 @@
 
 bool isPallindrome(char *s)
 {
-    int i = 0,non_space = 0;
-    bool flag = true;
+    if (!s) return false;
 
-    for(int i = 0; s[i] != '\0'; i++)
+    int left = 0;
+    int right = 0;
+
+    /* find last index */
+    while (s[right] != '\0') right++;
+    if (right == 0) return true;
+    right--; /* index of last character */
+
+    while (left < right)
     {
-        if((s[i] >= 'A') && (s[i] <= 'Z'))
+        /* move left to next alphanumeric */
+        while (left < right)
         {
-            s[i] = s[i] + 32;
+            char c = s[left];
+            if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
+                break;
+            left++;
         }
-        if((s[i] >= 97) && (s[i] <= 122) || (s[i] >= 48) && (s[i] <= 57))
-        {
-            s[non_space] = s[i];
-            non_space++;
-        }        
-    }
-    s[non_space] = '\0';
-    i = 0;
-    non_space--;
 
-    while(i < non_space)
-    {   
-        printf("%c = %c\n",s[i],s[non_space]);
-        if(s[i] != s[non_space])
+        /* move right to previous alphanumeric */
+        while (left < right)
         {
-            flag = false;
-            break;
+            char c = s[right];
+            if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
+                break;
+            right--;
         }
-        i++;
-        non_space--;
+
+        if (left >= right) break;
+
+        char cl = s[left];
+        char cr = s[right];
+
+        /* normalize uppercase to lowercase for comparison */
+        if (cl >= 'A' && cl <= 'Z') cl = cl + ('a' - 'A');
+        if (cr >= 'A' && cr <= 'Z') cr = cr + ('a' - 'A');
+
+        if (cl != cr) return false;
+
+        left++;
+        right--;
     }
-    return flag;
+
+    return true;
 }
 
 int main()
