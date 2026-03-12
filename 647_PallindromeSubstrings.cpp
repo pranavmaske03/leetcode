@@ -28,6 +28,35 @@ class Solution
             }
             return totalCount;
         }
+        
+    //  manchar's algoritham
+        int countSubstrings(string s) {
+        string t = "#";
+        for (char c : s) t += c, t += '#';
+
+        int n = t.size();
+        vector<int> p(n, 0);
+        int center = 0, right = 0;
+        int total = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (i < right)
+                p[i] = min(right - i, p[2 * center - i]);
+
+            while (i - p[i] - 1 >= 0 && i + p[i] + 1 < n &&
+                   t[i - p[i] - 1] == t[i + p[i] + 1])
+                p[i]++;
+
+            if (i + p[i] > right) {
+                center = i;
+                right = i + p[i];
+            }
+
+            total += (p[i] + 1) / 2; 
+        }
+
+        return total;
+    }
 };
 
 int main()
