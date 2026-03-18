@@ -4,30 +4,46 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution 
-{
-    public:
-        vector<int> topKFrequent(vector<int>& nums, int k) 
-        {
-            unordered_map<int,int> freq;
-            vector<int> result;
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        
+        unordered_map<int, int> freq;
+        for (int num : nums) freq[num]++;
 
-            for(auto& num : nums) {
-                freq[num]++;
-            }
-
-            vector<pair<int,int>> vec(freq.begin(),freq.end());
-            sort(vec.begin(),vec.end(),[](const auto &a, const auto &b){
-                return a.second > b.second;
-            });
-
-            for(size_t i = 0; i < vec.size() && k--; ++i) {
-                cout << vec[i].first << " " << vec[i].second << "\n";
-                result.push_back(vec[i].first);
-            }
-
-            return result;
+        int n = nums.size();
+        vector<vector<int>> bucket(n + 1);
+        for (auto &it : freq) {
+            bucket[it.second].push_back(it.first);
         }
+
+        vector<int> ans;
+        for (int i = n; i >= 0 && ans.size() < k; i--) {
+            for (int num : bucket[i]) {
+                ans.push_back(num);
+                if (ans.size() == k) break;
+            }
+        }
+        return ans;
+    }
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> mp;
+
+        for(int& num : nums) mp[num]++;
+        priority_queue<pair<int,int> ,vector<pair<int , int>> , greater<>>pq;
+
+        for(auto& [val, freq] : mp) {
+            pq.push({freq, val});
+            if(pq.size() > k) pq.pop();
+        }
+
+        vector<int> res;
+        while(!pq.empty()) {
+            res.push_back(pq.top().second);
+            pq.pop();
+        }
+        return res;
+    }
 };
 
 int main()
