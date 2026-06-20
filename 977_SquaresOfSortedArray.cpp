@@ -2,29 +2,28 @@
 #include<vector>
 using namespace std;
 
-class Solution 
-{
-    public:
-        vector<int> sortedSquares(vector<int>& nums) 
-        {
-            int l = 0,r = nums.size()-1;
-            vector<int> res(nums.size());
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> res(n, 0);
+        int left = 0, right = n - 1;
+        int last = n - 1;
 
-            for(int i = nums.size()-1; i >= 0; i--)
-            {
-                int left = nums[l] * nums[l];
-                int right = nums[r] * nums[r];
+        while(left <= right) {
+            int left_sqr = nums[left] * nums[left];
+            int right_sqr = nums[right] * nums[right];
 
-                if(left > right) {
-                    res[i] = left;
-                    l++;
-                } else {
-                    res[i] = right;
-                    r--;
-                }
+            if(left_sqr > right_sqr) {
+                res[last--] = left_sqr;
+                left++;
+            } else {
+                res[last--] = right_sqr;
+                right--;
             }
-            return res;
         }
+        return res;
+    }
 };
 
 int main()
