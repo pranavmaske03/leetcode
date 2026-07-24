@@ -1,22 +1,20 @@
-class Solution {
-public:
-    int maxCount(vector<int>& banned, int n, int maxSum) {
-        unordered_set<int> set;
-        int sum = 0, res = 0;
-        for(auto& val : banned) {
-            if(val <= n) {
-                set.insert(val);
-            }
-        }
+class Solution 
+{
+    public:
+        int maxCount(vector<int>& banned, int n, int maxSum) 
+        {
+            vector<bool> tracker(n+1,true);
+            int sum = 0,count = 0;
 
-        for(int i = 1; i <= n; i++) {
-            if(sum > maxSum)
-                break;
-            if(set.find(i) == set.end() && (sum + i) <= maxSum) {
-                sum += i;
-                res++;
+            for(auto i : banned)  
+                if(i <= n) 
+                    tracker[i] = false;    
+            
+            for(int i = 1; i < tracker.size(); i++)
+            {
+                if(tracker[i] && (sum += i) <= maxSum) 
+                    count++;
             }
+            return count;
         }
-        return res;
-    }
 };
