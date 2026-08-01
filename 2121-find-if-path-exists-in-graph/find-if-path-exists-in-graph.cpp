@@ -1,20 +1,5 @@
 class Solution {
 public:
-    bool dfs(vector<vector<int>>& graph, vector<bool>& visited, int node, int dest) {
-        if(node == dest){
-            return true;
-        }
-        visited[node] = true;
-
-        for(int& vertex : graph[node]) {
-            if(!visited[vertex]) {
-                if(dfs(graph, visited, vertex, dest))
-                    return true;
-            }
-        }
-        return false;
-    }
-
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
         vector<vector<int>> graph(n);
 
@@ -27,6 +12,25 @@ public:
         }
 
         vector<bool> visited(n, false);
-        return dfs(graph, visited, source, destination);
+        queue<int> q;
+
+        q.push(source);
+        visited[source] = true;
+
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+
+            if(node == destination) {
+                return true;
+            }
+            for(int& vertex : graph[node]) {
+                if(!visited[vertex]) {
+                    q.push(vertex);
+                    visited[vertex] = true;
+                }
+            }
+        }
+        return false;
     }
 };
