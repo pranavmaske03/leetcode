@@ -3,9 +3,7 @@ public:
     vector<vector<int>> res;
     void dfs(int node, vector<vector<int>>& graph, vector<int>& path, vector<bool>& visited, int& dest) {
 
-        if(!visited[node]) {
-            path.push_back(node);
-        }
+        path.push_back(node);
         if(node == dest)    {
             res.push_back(path);
             path.pop_back();
