@@ -4,23 +4,18 @@ public:
         int rows = grid.size();
         int cols = grid[0].size();
 
-        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+        if (row < 0 || row >= rows || col < 0 || col >= cols)
             return;
-        }
         if(grid[row][col] == 0 || visited[row][col])
             return;
-
-        if(grid[row][col] == 1 && !visited[row][col]) {
-            area++;
-        }
-
+      
+        area++;
         visited[row][col] = true;
+
         dfs(row - 1, col, grid, visited, area);
         dfs(row + 1, col, grid, visited, area);
         dfs(row, col - 1, grid, visited, area);
         dfs(row, col + 1, grid, visited, area);
-
-        return;
     }
 
     int maxAreaOfIsland(vector<vector<int>>& grid) {
