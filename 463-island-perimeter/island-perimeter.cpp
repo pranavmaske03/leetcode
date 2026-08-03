@@ -1,28 +1,43 @@
 class Solution {
 public:
+    int dfs(int row,int col,vector<vector<int>>& grid, vector<vector<bool>>& visited) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+            return 1;
+        }
+        if (grid[row][col] == 0) {
+            return 1;
+        }
+        if (visited[row][col]) {
+            return 0;
+        }
+
+        visited[row][col] = true;
+        int perimeter = 0;
+
+        perimeter += dfs(row - 1, col, grid, visited);
+        perimeter += dfs(row + 1, col, grid, visited);
+        perimeter += dfs(row, col - 1, grid, visited);
+        perimeter += dfs(row, col + 1, grid, visited);
+
+        return perimeter;
+    }
+
     int islandPerimeter(vector<vector<int>>& grid) {
         int rows = grid.size();
         int cols = grid[0].size();
-        int perimeter = 0;
+        vector<vector<bool>> visited(rows, vector<bool>(cols, false));
 
-        for(int i = 0; i < rows; i++) {
-            for(int j = 0; j < cols; j++) {
-                if(grid[i][j] == 1) {
-                    if(i - 1 < 0 || grid[i - 1][j] == 0) {
-                        perimeter += 1;
-                    }
-                    if(i + 1 >= rows || grid[i + 1][j] == 0) {
-                        perimeter += 1;
-                    }
-                    if(j - 1 < 0 || grid[i][j - 1] == 0) {
-                        perimeter += 1;
-                    }
-                    if(j + 1 >= cols || grid[i][j + 1] == 0) {
-                        perimeter += 1;
-                    }
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (grid[row][col] == 1) {
+                    return dfs(row, col, grid, visited);
                 }
             }
         }
-        return perimeter;
+
+        return 0;
     }
 };
