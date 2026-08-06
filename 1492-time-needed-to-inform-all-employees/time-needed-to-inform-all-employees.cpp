@@ -1,8 +1,6 @@
 class Solution {
 public:
     int dfs(int node, vector<vector<int>>& graph, vector<int>& informTime) {
-        if(informTime[node] == 0)
-            return 0;
 
         int time = 0;
         for(auto& neibour : graph[node]) {
