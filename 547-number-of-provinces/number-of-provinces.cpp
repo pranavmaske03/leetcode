@@ -1,21 +1,12 @@
 class Solution {
 public:
-    void bfs(int city, vector<vector<int>>& graph, vector<bool>& visited) {
-        int n = graph.size();
-        queue<int> q;
+    void dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
+        visited[node] = true;
 
-        q.push(city);
-        visited[city] = true;
-
-        while(!q.empty()) {
-            int node = q.front();
-            q.pop();
-
-            for(int i = 0; i < n; i++) {
-                if(graph[node][i] == 1 && !visited[i]) {
-                    q.push(i);
-                    visited[i] = true;
-                }
+        for(int j = 0; j < graph.size(); j++) {
+            if(graph[node][j] == 1 && !visited[j]) {
+                visited[j] = true;
+                dfs(j, graph, visited);
             }
         }
     }
@@ -28,7 +19,7 @@ public:
         for(int city = 0; city < n; city++) {
             if(!visited[city]) {
                 provinces++;
-                bfs(city, isConnected, visited);
+                dfs(city, isConnected, visited);
             }
         }
         return provinces;
