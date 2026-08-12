@@ -9,39 +9,35 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
-public:
-    bool check(vector<int>& nums) {
-        int oddCount = 0;
-        for(int& num : nums) {
-            if(num%2 == 1) {
-                oddCount++;
-            }
-        }
-        return oddCount <= 1;
-    }
-
-    void DFS(TreeNode* root, vector<int>& nums, int& res) {
-        if(root == nullptr)
-            return;
+class Solution 
+{
+    public:
+        int pseudoCount = 0;
         
-        nums[root->val]++;
-        if(!root->left && !root->right) {
-            if(check(nums)) {
-                res++;
+        void DFS(TreeNode* root, vector<int>& parity, int oddCount) {
+            if(root == nullptr) return;
+
+            parity[root->val] ^= 1;
+            if(parity[root->val] == 1) {
+                oddCount++;
+            } else {
+                oddCount--;
             }
+
+            if(!root->left && !root->right && oddCount < 2) {
+                pseudoCount++;
+            }
+            DFS(root->left, parity, oddCount);
+            DFS(root->right, parity, oddCount);
+
+            parity[root->val] ^= 1; // backtracking the parity again to maintain correct count;
         }
-        DFS(root->left, nums, res);
-        DFS(root->right, nums, res);
 
-        nums[root->val]--;
-    }
-
-    int pseudoPalindromicPaths (TreeNode* root) {
-        vector<int> nums(10, 0);
-        int res = 0;
-
-        DFS(root, nums, res);
-        return res;
-    }
+        int pseudoPalindromicPaths (TreeNode* root) 
+        {
+            if(root == nullptr) return 0;
+            vector<int> parity(10,0);
+            DFS(root, parity, 0);
+            return pseudoCount;
+        }
 };
