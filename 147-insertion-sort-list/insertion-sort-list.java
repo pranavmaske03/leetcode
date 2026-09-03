@@ -14,18 +14,23 @@ class Solution {
             return head;
 
         ListNode dummy = new ListNode(0);
-        ListNode curr = head;
+        dummy.next = head;
 
+        ListNode lastSorted = head;
+        ListNode curr = head.next;
         while(curr != null) {
-            ListNode next = curr.next;
-            ListNode prev = dummy;
-
-            while(prev.next != null && prev.next.val < curr.val) {
-                prev = prev.next;
+            if(lastSorted.val <= curr.val) {
+                lastSorted = lastSorted.next;
+            } else {
+                ListNode prev = dummy;
+                while(prev.next.val <= curr.val) {
+                    prev = prev.next;
+                }
+                lastSorted.next = curr.next;
+                curr.next = prev.next;
+                prev.next = curr;
             }
-            curr.next = prev.next;
-            prev.next = curr;
-            curr = next;
+            curr = lastSorted.next;
         }
         return dummy.next;
     }
