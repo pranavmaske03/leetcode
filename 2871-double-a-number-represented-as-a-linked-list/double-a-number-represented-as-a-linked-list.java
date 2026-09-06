@@ -9,42 +9,22 @@
  * }
  */
 class Solution {
-    public ListNode reverseLL(ListNode head) {
-        ListNode curr = head;
-        ListNode prev = null;
-
-        while(curr != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
-        return prev;
-    }
-
     public ListNode doubleIt(ListNode head) {
-        if(head == null)
-            return head;
-
         ListNode dummy = new ListNode(0);      
-        ListNode curr = reverseLL(head);
-        int carry = 0;
+        dummy.next = head;
 
-        while(curr != null) {
-            int doubleVal = curr.val + curr.val + carry;
-            carry = doubleVal > 9 ? 1 : 0;
+        ListNode left = dummy;
+        ListNode right = head;
 
-            ListNode node = new ListNode(doubleVal % 10);
-            node.next = dummy.next;
-            dummy.next = node;
+        while(right != null) {
+            if((right.val * 2) >= 10) {
+                left.val += 1;
+            }
+            right.val = (2 * right.val) % 10;
 
-            curr = curr.next;
+            left = left.next;
+            right = right.next;
         }
-        if(carry != 0) {
-            ListNode node = new ListNode(carry);
-            node.next = dummy.next;
-            dummy.next = node;
-        }
-        return dummy.next;
+        return dummy.val > 0 ? dummy : head;
     }
 }
