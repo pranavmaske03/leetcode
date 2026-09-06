@@ -15,13 +15,14 @@ class Solution {
         int groupSize = 1;
         ListNode curr = head;
         ListNode manage = head;
-        ListNode first = null;
 
         while(curr != null) {
-            first = curr;
+            ListNode first = curr;
+            ListNode last = null;
             int len = 0;
 
             while(curr != null && len < groupSize) {
+                last = curr;
                 curr = curr.next;
                 len++;
             }
@@ -31,11 +32,7 @@ class Solution {
                 manage.next = newHead;
                 manage = first;
             } else {
-                ListNode temp = first;
-                while (temp.next != curr) {
-                    temp = temp.next;
-                }
-                manage = temp;
+                manage = last;
             }
             groupSize++;
         }
