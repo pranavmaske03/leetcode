@@ -32,8 +32,26 @@ class Solution {
         if(root == null)
             return new ArrayList<>();
         
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
         List<Integer> result = new ArrayList<>();
-        DFS(root, 0, result);
+
+        while(!queue.isEmpty()) {
+            int levelSize = queue.size();
+            result.add(queue.peek().val);
+            int idx = result.size() - 1;
+
+            for(int i = 0; i < levelSize; i++) {
+                TreeNode node = queue.poll();
+                result.set(idx, Math.max(result.get(idx), node.val));
+
+                if(node.left != null) 
+                    queue.offer(node.left);
+                if(node.right != null) 
+                    queue.offer(node.right);
+                
+            }
+        }
         return result;
     }
 }
