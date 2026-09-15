@@ -13,29 +13,36 @@
  *     }
  * }
  */
+
+class Pair {
+    int depth;
+    TreeNode node;
+
+    public Pair(int depth, TreeNode node) {
+        this.depth = depth;
+        this.node = node;
+    }
+}
+
 class Solution {
-    public TreeNode lca = null;
-    public int maxDepth = 0;
-
-    public int DFS(TreeNode root, int depth) {
-        maxDepth = Math.max(maxDepth, depth);
-
+    public Pair DFS(TreeNode root) {
         if(root == null)
-            return depth;
+            return new Pair(0, null);
         
-        int left = DFS(root.left, depth + 1);
-        int right = DFS(root.right, depth + 1);
+        Pair left = DFS(root.left);
+        Pair right = DFS(root.right);
 
-        if(left == maxDepth && right == maxDepth)
-            lca = root;
+        if(left.depth > right.depth) 
+            return new Pair(left.depth + 1, left.node);
+        if(right.depth > left.depth) 
+            return new Pair(right.depth + 1, right.node);
         
-        return Math.max(left, right);
+        return new Pair(left.depth + 1, root);
     }
 
     public TreeNode lcaDeepestLeaves(TreeNode root) {
         if(root == null)    
             return null;
-        DFS(root, 0);
-        return lca;
+        return DFS(root).node;
     }
 }
