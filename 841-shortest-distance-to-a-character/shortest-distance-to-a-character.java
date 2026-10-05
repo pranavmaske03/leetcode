@@ -17,10 +17,7 @@ class Solution {
             }
         }
         for (int i = n - 1, k = charIdx.size() - 1; i >= 0; i--) {
-            res[i] = Math.min(
-                res[i],
-                Math.abs(i - charIdx.get(k))
-            );
+            res[i] = Math.min(res[i], Math.abs(i - charIdx.get(k)));
             if (k - 1 >= 0 && i == charIdx.get(k)) {
                 k--;
             }
